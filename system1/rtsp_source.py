@@ -24,12 +24,13 @@ class FrameSource:
         logger.info("Opened stream: %s", stream_url)
 
     def grab(self) -> tuple[np.ndarray | None, datetime]:
-        """Read one frame. Timestamp is captured at read time (UTC).
+        """Read one frame. Timestamp is captured AFTER read so it reflects
+        frame arrival, not loop entry — RTSP reads can block on jitter.
 
         Returns (frame, timestamp). Frame is None if the source returned no data.
         """
-        ts = datetime.now(timezone.utc)
         ok, frame = self._cap.read()
+        ts = datetime.now(timezone.utc)
         return (frame if ok else None), ts
 
     def release(self) -> None:

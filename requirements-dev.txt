@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest>=7.0
+# Path dep: required for tests/test_geometry_mirror.py — keeps the two
+# bbox_center_to_bearing implementations from drifting silently.
+-e ../drone-detection-ml

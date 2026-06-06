@@ -1,27 +1,51 @@
+# Generated from Unity UDP GT — see tools/gen_camera_configs.py.
+# cam_NN <-> Unity camN with proper az/el extracted from rot_q.
 cameras:
-  # Unity simulation cameras — same config shape as real cameras.
-  # stream_url points at the Unity RTSP server (mediamtx, port 8554).
-  # azimuth_deg/elevation_deg must match the Unity scene camera orientations
-  # (run tools/unity_gt_listener.py to read rot_q from UDP labels on port 9870
-  # if you need to derive these values).
-  - cam_id: "cam_01"
-    stream_url: "rtsp://localhost:8554/cam0"
-    azimuth_deg: 0.0
-    elevation_deg: -15.0
-    hfov_deg: 90.0
-    vfov_deg: 60.0
-
-  - cam_id: "cam_02"
-    stream_url: "rtsp://localhost:8554/cam1"
-    azimuth_deg: 90.0
-    elevation_deg: -15.0
-    hfov_deg: 90.0
-    vfov_deg: 60.0
-
-  # Real physical camera — identical config shape, just a different URL.
-  # - cam_id: "cam_03"
-  #   stream_url: "rtsp://192.168.1.10:8554/stream"
-  #   azimuth_deg: 45.0
-  #   elevation_deg: -20.0
-  #   hfov_deg: 90.0
-  #   vfov_deg: 60.0
+- cam_id: cam_01
+  stream_url: rtsp://localhost:8554/cam0
+  azimuth_deg: 0.0
+  elevation_deg: 10.416
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_02
+  stream_url: rtsp://localhost:8554/cam1
+  azimuth_deg: 312.274
+  elevation_deg: 6.524
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_03
+  stream_url: rtsp://localhost:8554/cam2
+  azimuth_deg: 282.995
+  elevation_deg: 3.431
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_04
+  stream_url: rtsp://localhost:8554/cam3
+  azimuth_deg: 228.013
+  elevation_deg: -5.097
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_05
+  stream_url: rtsp://localhost:8554/cam4
+  azimuth_deg: 180.0
+  elevation_deg: 4.764
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_06
+  stream_url: rtsp://localhost:8554/cam5
+  azimuth_deg: 129.289
+  elevation_deg: -2.417
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_07
+  stream_url: rtsp://localhost:8554/cam6
+  azimuth_deg: 60.555
+  elevation_deg: 6.013
+  hfov_deg: 91.493
+  vfov_deg: 60.0
+- cam_id: cam_08
+  stream_url: rtsp://localhost:8554/cam7
+  azimuth_deg: 180.0
+  elevation_deg: -84.806
+  hfov_deg: 91.493
+  vfov_deg: 60.0

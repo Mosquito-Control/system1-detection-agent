@@ -1,4 +1,5 @@
 import logging
+from pathlib import Path
 
 import numpy as np
 
@@ -22,6 +23,15 @@ class DroneDetector:
         target_classes: list[int] | None,
     ) -> None:
         from ultralytics import YOLO  # deferred import — not needed in sim mode
+
+        # Fail fast at startup if the model file is missing. Without this, YOLO()
+        # silently tries to fetch from Ultralytics hub and crashes mid-inference
+        # inside a network-isolated container.
+        if not Path(model_path).exists():
+            raise FileNotFoundError(
+                f"YOLO model not found at {model_path!r}. "
+                "Set MODEL_PATH to a local .pt file."
+            )
 
         self._model = YOLO(model_path)
         self._conf = conf

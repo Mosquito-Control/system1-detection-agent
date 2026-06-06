@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import datetime
+from datetime import datetime, timezone
 
 
 @dataclass(frozen=True)
@@ -25,9 +25,14 @@ class CameraEvent:
     detections: tuple[Detection, ...]
 
     def to_dict(self) -> dict:
+        # Emit Z-suffix UTC per the System 2 contract (HANDOFF.md). Pydantic
+        # accepts +00:00 too, but Z is the documented wire format.
+        iso = self.timestamp.astimezone(timezone.utc).isoformat()
+        if iso.endswith("+00:00"):
+            iso = iso[:-6] + "Z"
         return {
             "cam_id": self.cam_id,
-            "timestamp": self.timestamp.isoformat(),
+            "timestamp": iso,
             "detections": [
                 {"bearing_vector": list(d.bearing_vector), "score": d.score}
                 for d in self.detections

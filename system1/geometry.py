@@ -1,3 +1,8 @@
+# MIRROR of drone-detection-ml/src/drone_detector/geometry.py.
+# S1 ships in a slim container without the ML package; the math is duplicated
+# on purpose. tests/test_geometry_mirror.py asserts the two implementations
+# produce identical output — keep them in sync.
+
 import math
 
 
