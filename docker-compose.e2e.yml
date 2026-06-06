@@ -1,0 +1,11 @@
+services:
+  e2e:
+    build: .
+    network_mode: host
+    volumes:
+      - ./tests:/app/tests:ro
+    command: python tests/e2e/run_e2e.py
+    environment:
+      - MODEL_PATH=yolov8s.pt
+      - CONF_THRESHOLD=0.35
+      - TIMEOUT_S=120
