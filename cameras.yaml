@@ -1,0 +1,18 @@
+# System 1 camera configuration.
+#
+# unity_name: camera name as it appears in the UDP datagram "cameras[].name"
+# cam_id:     camera ID sent to System 2 — must match System 2's cameras.yaml exactly
+# mode:       "sim"  → use UDP label datagrams (K + quaternion, no YOLO)
+#             "rtsp" → use RTSP stream + YOLO inference
+#
+# In "rtsp" mode, also provide:
+#   stream_url, azimuth_deg, elevation_deg, hfov_deg, vfov_deg
+
+cameras:
+  - unity_name: "cam0"
+    cam_id: "cam_01"
+    mode: sim
+
+  - unity_name: "cam1"
+    cam_id: "cam_02"
+    mode: sim

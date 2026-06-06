@@ -1,0 +1,14 @@
+services:
+  system1:
+    build: .
+    network_mode: host        # needed to reach Unity RTSP + UDP on localhost
+    environment:
+      - CAMERAS_FILE=cameras.yaml
+      - SYSTEM2_URL=https://system2-api.agreeablesea-31719cb5.westeurope.azurecontainerapps.io
+      - UDP_PORT=9870
+      - MODEL_PATH=yolov8s.pt
+      - CONF_THRESHOLD=0.35
+      - POST_TIMEOUT_S=2.0
+      - POST_EMPTY_DETECTIONS=false
+    volumes:
+      - ./cameras.yaml:/app/cameras.yaml:ro
