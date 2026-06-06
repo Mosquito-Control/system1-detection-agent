@@ -25,6 +25,20 @@ RTSP streams, both get YOLO applied. The only difference is the URL in `cameras.
 
 ---
 
+## Related Repositories
+
+| Repo | What it is |
+|---|---|
+| [`drone-detection-ml`](https://github.com/Tion-ping/drone-detection-ml) | **The ML component.** The drone model (`yolov8n-drone.onnx`), the inference wrapper, the pixel→ENU bearing geometry (canonical reference), and the full integration docs. System 1 runs this model on every RTSP camera (Unity and real). |
+| [`system2-positioning-engine`](https://github.com/Tion-ping/system2-positioning-engine) | System 2 — multi-camera ray triangulation; receives our `/events` POSTs and writes GPS positions. |
+
+> **ML note:** the bearing math in `system1/geometry.py` is mirrored in
+> `drone-detection-ml/src/drone_detector/geometry.py` (the canonical reference,
+> with unit tests). If you change one, change both. See that repo's
+> `ARCHITECTURE.md` for the full end-to-end data flow and contracts.
+
+---
+
 ## Unity RTSP Contract
 
 Unity streams one RTSP feed per camera:
