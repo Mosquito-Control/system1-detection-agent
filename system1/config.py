@@ -5,10 +5,6 @@ class Settings(BaseSettings):
     cameras_file: str = "cameras.yaml"
     system2_url: str = "https://system2-api.agreeablesea-31719cb5.westeurope.azurecontainerapps.io"
 
-    # UDP label stream from Unity (sim mode)
-    udp_host: str = "0.0.0.0"
-    udp_port: int = 9870
-
     # YOLO / real-camera settings
     model_path: str = "yolov8s.pt"   # override MODEL_PATH env var to swap weights
     conf_threshold: float = 0.35

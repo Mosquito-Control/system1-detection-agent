@@ -4,11 +4,8 @@ from datetime import datetime
 
 @dataclass(frozen=True)
 class CameraConfig:
-    unity_name: str   # name in UDP datagram "cameras[].name"
-    cam_id: str       # sent to System 2, must match System 2's cameras.yaml
-    mode: str         # "sim" or "rtsp"
-    # RTSP-mode fields (optional, only used when mode == "rtsp")
-    stream_url: str = ""
+    cam_id: str        # sent to System 2, must match System 2's cameras.yaml
+    stream_url: str    # RTSP URL (rtsp://host:port/path) or local file path for testing
     azimuth_deg: float = 0.0
     elevation_deg: float = 0.0
     hfov_deg: float = 90.0

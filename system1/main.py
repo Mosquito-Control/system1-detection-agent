@@ -8,7 +8,6 @@ from system1.camera_worker import run_camera
 from system1.config import settings
 from system1.detector import DroneDetector
 from system1.models import CameraConfig
-from system1.udp_listener import listen
 
 logging.basicConfig(
     level=logging.INFO,
@@ -24,46 +23,28 @@ def load_cameras(path: str) -> list[CameraConfig]:
 
 
 def main() -> None:
-    dump_mode = "--dump" in sys.argv  # print UDP datagrams and exit, no POSTing
-
     cameras = load_cameras(settings.cameras_file)
-    sim_cameras = [c for c in cameras if c.mode == "sim"]
-    rtsp_cameras = [c for c in cameras if c.mode == "rtsp"]
+    if not cameras:
+        logger.error("No cameras configured in %s — exiting", settings.cameras_file)
+        sys.exit(1)
 
-    logger.info(
-        "System 1 starting — sim cams: %d, rtsp cams: %d",
-        len(sim_cameras), len(rtsp_cameras),
+    detector = DroneDetector(
+        settings.model_path,
+        settings.conf_threshold,
+        settings.target_classes or None,
     )
 
-    threads: list[threading.Thread] = []
+    logger.info("System 1 starting — %d camera(s)", len(cameras))
 
-    if sim_cameras:
-        t = threading.Thread(
-            target=listen,
-            args=(sim_cameras, settings, dump_mode),
+    threads = [
+        threading.Thread(
+            target=run_camera,
+            args=(cam, detector, settings),
             daemon=True,
-            name="udp-listener",
+            name=f"cam-{cam.cam_id}",
         )
-        threads.append(t)
-
-    if rtsp_cameras:
-        detector = DroneDetector(
-            settings.model_path,
-            settings.conf_threshold,
-            settings.target_classes or None,
-        )
-        for cam in rtsp_cameras:
-            t = threading.Thread(
-                target=run_camera,
-                args=(cam, detector, settings),
-                daemon=True,
-                name=f"rtsp-{cam.cam_id}",
-            )
-            threads.append(t)
-
-    if not threads:
-        logger.error("No cameras configured — exiting")
-        sys.exit(1)
+        for cam in cameras
+    ]
 
     for t in threads:
         t.start()

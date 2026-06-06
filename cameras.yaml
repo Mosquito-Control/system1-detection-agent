@@ -1,18 +1,27 @@
-# System 1 camera configuration.
-#
-# unity_name: camera name as it appears in the UDP datagram "cameras[].name"
-# cam_id:     camera ID sent to System 2 — must match System 2's cameras.yaml exactly
-# mode:       "sim"  → use UDP label datagrams (K + quaternion, no YOLO)
-#             "rtsp" → use RTSP stream + YOLO inference
-#
-# In "rtsp" mode, also provide:
-#   stream_url, azimuth_deg, elevation_deg, hfov_deg, vfov_deg
-
 cameras:
-  - unity_name: "cam0"
-    cam_id: "cam_01"
-    mode: sim
+  # Unity simulation cameras — same config shape as real cameras.
+  # stream_url points at the Unity RTSP server (mediamtx, port 8554).
+  # azimuth_deg/elevation_deg must match the Unity scene camera orientations
+  # (run tools/unity_gt_listener.py to read rot_q from UDP labels on port 9870
+  # if you need to derive these values).
+  - cam_id: "cam_01"
+    stream_url: "rtsp://localhost:8554/cam0"
+    azimuth_deg: 0.0
+    elevation_deg: -15.0
+    hfov_deg: 90.0
+    vfov_deg: 60.0
 
-  - unity_name: "cam1"
-    cam_id: "cam_02"
-    mode: sim
+  - cam_id: "cam_02"
+    stream_url: "rtsp://localhost:8554/cam1"
+    azimuth_deg: 90.0
+    elevation_deg: -15.0
+    hfov_deg: 90.0
+    vfov_deg: 60.0
+
+  # Real physical camera — identical config shape, just a different URL.
+  # - cam_id: "cam_03"
+  #   stream_url: "rtsp://192.168.1.10:8554/stream"
+  #   azimuth_deg: 45.0
+  #   elevation_deg: -20.0
+  #   hfov_deg: 90.0
+  #   vfov_deg: 60.0
