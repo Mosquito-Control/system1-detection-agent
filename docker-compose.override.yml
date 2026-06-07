@@ -1,0 +1,13 @@
+services:
+  system1:
+    environment:
+      - SYSTEM2_URL=http://host.docker.internal:8000
+      # Drone-fine-tuned nano (ONNX) from drone-detection-ml/models. The
+      # X-large variant (yolov11x-drone.pt) caught more distant drones but
+      # took 5-15 s per cam on this M5, so YOLO always returned a stale
+      # frame and the back-projected position was stuck in the past. The
+      # nano runs at ~100 ms/cam, so bbox centres move with the drone.
+      - MODEL_PATH=/app/yolov8n-drone.onnx
+      - CONF_THRESHOLD=0.25
+    volumes:
+      - ../drone-detection-ml/models/yolov8n-drone.onnx:/app/yolov8n-drone.onnx:ro

@@ -1,7 +1,17 @@
 services:
   system1:
     build: .
-    network_mode: host        # needed to reach Unity RTSP + UDP on localhost
+    # Bridge networking instead of host: Docker Desktop on macOS doesn't
+    # actually honor network_mode: host (the container runs inside the
+    # Linux VM and the VM's ports aren't exposed to the Mac). That made
+    # our bbox tap on :8090 unreachable from the dashboard, even though
+    # binding inside the container succeeded. Bridge mode with an
+    # explicit port mapping plus host.docker.internal for the RTSP/UDP
+    # back-channels gives us reachability in both directions.
+    ports:
+      - "8090:8090"             # bbox tap → System 3 modal overlay
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # Linux compatibility
     environment:
       - CAMERAS_FILE=cameras.yaml
       - SYSTEM2_URL=https://system2-api.agreeablesea-31719cb5.westeurope.azurecontainerapps.io

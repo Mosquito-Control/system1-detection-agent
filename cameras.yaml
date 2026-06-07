@@ -1,51 +1,83 @@
-# Generated from Unity UDP GT — see tools/gen_camera_configs.py.
-# cam_NN <-> Unity camN with proper az/el extracted from rot_q.
+# 12-camera TST rig from system4-unity-simulation commit 663f3d2.
+# azimuth/elevation/FoV per cam come straight from that commit's authoritative
+# table (bearing→azimuth, tilt→elevation, vfov/hfov verbatim). cam_NN maps to
+# Unity camN-1 (cam_01 ↔ cam0, …, cam_12 ↔ cam11), preserving the same
+# convention as Orgs/system2-positioning-engine/cameras.yaml so S1 cam_ids
+# match S2's camera registry exactly.
+#
+# stream_url uses MediaMTX path /camN (Unity's published path; deploy/mediamtx).
+# Regenerate from live Unity UDP GT when the rig changes:
+#   python -m tools.gen_camera_configs
 cameras:
 - cam_id: cam_01
-  stream_url: rtsp://localhost:8554/cam0
-  azimuth_deg: 0.0
-  elevation_deg: 10.416
-  hfov_deg: 91.493
+  stream_url: rtsp://host.docker.internal:8554/cam0
+  azimuth_deg: 180.0
+  elevation_deg: 26.5
+  hfov_deg: 91.5
   vfov_deg: 60.0
 - cam_id: cam_02
-  stream_url: rtsp://localhost:8554/cam1
-  azimuth_deg: 312.274
-  elevation_deg: 6.524
-  hfov_deg: 91.493
+  stream_url: rtsp://host.docker.internal:8554/cam1
+  azimuth_deg: 0.0
+  elevation_deg: 24.1
+  hfov_deg: 91.5
   vfov_deg: 60.0
 - cam_id: cam_03
-  stream_url: rtsp://localhost:8554/cam2
-  azimuth_deg: 282.995
-  elevation_deg: 3.431
-  hfov_deg: 91.493
+  stream_url: rtsp://host.docker.internal:8554/cam2
+  azimuth_deg: 305.2
+  elevation_deg: 9.8
+  hfov_deg: 91.5
   vfov_deg: 60.0
 - cam_id: cam_04
-  stream_url: rtsp://localhost:8554/cam3
-  azimuth_deg: 228.013
-  elevation_deg: -5.097
-  hfov_deg: 91.493
+  stream_url: rtsp://host.docker.internal:8554/cam3
+  azimuth_deg: 90.0
+  elevation_deg: 18.8
+  hfov_deg: 91.5
   vfov_deg: 60.0
 - cam_id: cam_05
-  stream_url: rtsp://localhost:8554/cam4
-  azimuth_deg: 180.0
-  elevation_deg: 4.764
-  hfov_deg: 91.493
-  vfov_deg: 60.0
+  stream_url: rtsp://host.docker.internal:8554/cam4
+  azimuth_deg: 270.8
+  elevation_deg: 5.6
+  hfov_deg: 85.6
+  vfov_deg: 55.0
 - cam_id: cam_06
-  stream_url: rtsp://localhost:8554/cam5
-  azimuth_deg: 129.289
-  elevation_deg: -2.417
-  hfov_deg: 91.493
-  vfov_deg: 60.0
+  stream_url: rtsp://host.docker.internal:8554/cam5
+  azimuth_deg: 0.0
+  elevation_deg: 42.3
+  hfov_deg: 85.6
+  vfov_deg: 55.0
 - cam_id: cam_07
-  stream_url: rtsp://localhost:8554/cam6
-  azimuth_deg: 60.555
-  elevation_deg: 6.013
-  hfov_deg: 91.493
+  stream_url: rtsp://host.docker.internal:8554/cam6
+  azimuth_deg: 0.0
+  elevation_deg: 23.7
+  hfov_deg: 91.5
   vfov_deg: 60.0
 - cam_id: cam_08
-  stream_url: rtsp://localhost:8554/cam7
+  stream_url: rtsp://host.docker.internal:8554/cam7
+  azimuth_deg: 192.7
+  elevation_deg: 28.8
+  hfov_deg: 85.6
+  vfov_deg: 55.0
+- cam_id: cam_09
+  stream_url: rtsp://host.docker.internal:8554/cam8
+  azimuth_deg: 277.2
+  elevation_deg: 16.4
+  hfov_deg: 85.6
+  vfov_deg: 55.0
+- cam_id: cam_10
+  stream_url: rtsp://host.docker.internal:8554/cam9
+  azimuth_deg: 244.3
+  elevation_deg: 24.2
+  hfov_deg: 91.5
+  vfov_deg: 60.0
+- cam_id: cam_11
+  stream_url: rtsp://host.docker.internal:8554/cam10
+  azimuth_deg: 229.8
+  elevation_deg: 38.6
+  hfov_deg: 91.5
+  vfov_deg: 60.0
+- cam_id: cam_12
+  stream_url: rtsp://host.docker.internal:8554/cam11
   azimuth_deg: 180.0
-  elevation_deg: -84.806
-  hfov_deg: 91.493
+  elevation_deg: 26.1
+  hfov_deg: 91.5
   vfov_deg: 60.0

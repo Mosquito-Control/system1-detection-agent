@@ -3,3 +3,5 @@ opencv-python-headless>=4.8
 requests>=2.31
 pyyaml>=6.0
 pydantic-settings>=2.0
+fastapi>=0.110
+uvicorn>=0.27
