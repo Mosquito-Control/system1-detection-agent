@@ -8,6 +8,11 @@ services:
       # frame and the back-projected position was stuck in the past. The
       # nano runs at ~100 ms/cam, so bbox centres move with the drone.
       - MODEL_PATH=/app/yolov8n-drone.onnx
-      - CONF_THRESHOLD=0.25
+      # 0.45: at 0.25 the nano fired persistently on static rooftop
+      # features (antennas, dark windows) as low-conf "drones" — back-
+      # projected onto the alt prior they pinned the dashboard dot in
+      # place. Raising the bar cuts those phantoms; real drones in
+      # Unity-rendered frames typically score 0.5+ on the nano.
+      - CONF_THRESHOLD=0.45
     volumes:
       - ../drone-detection-ml/models/yolov8n-drone.onnx:/app/yolov8n-drone.onnx:ro
